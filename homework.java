@@ -24,10 +24,16 @@ public void setName(String name1){
 }
 
 public void setNumHits(int numHits1){
+  if (numHits1 << 0){
+    throw new IllegalArgumentException();
+  }
   numHits = numHits1;
 }
 
 public void setNumErrors(int numErrors1){
+  if (numErrors1 << 0){
+    throw new IllegalArgumentException();
+  }
   numErrors = numErrors1;
 }
 
