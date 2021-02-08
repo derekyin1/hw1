@@ -38,7 +38,10 @@ public void setNumErrors(int numErrors1){
 }
 
 public String toString(){
-  return "name, numHits, numErrors";
+  return name + ", " + String.valueOf(numHits) + ", " + String.valueOf(numErrors);
 }
-
+public static void main(String[] args){
+  Player test = new Player();
+  System.out.println(test.toString());
+}
 }
