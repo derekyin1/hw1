@@ -16,8 +16,8 @@ return (Object) clone;
 
   public boolean equals(Object obj){
     for(int i = 0; i < MAX_PLAYERS; i++){
-      if (obj[i].getName().equals(players[i].getName())){
-        if ((obj[i].getNumHits() != players[i].getNumHits()) || (obj[i].getNumErrors() != players[i].getNumErrors())){
+      if (((Player[]) obj)[i].getName().equals(players[i].getName())){
+        if ((((Player[])obj)[i].getNumHits() != players[i].getNumHits()) || (((Player[])obj)[i].getNumErrors() != players[i].getNumErrors())){
           return false;
         }
       }
