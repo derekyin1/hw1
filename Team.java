@@ -15,7 +15,14 @@ return (Object) clone;
 }
 
   public boolean equals(Object obj){
-return false;
+    for(int i = 0; i < MAX_PLAYERS; i++){
+      if (obj[i].getName().equals(players[i].getName())){
+        if ((obj[i].getNumHits() != players[i].getNumHits()) || (obj[i].getNumErrors() != players[i].getNumErrors())){
+          return false;
+        }
+      }
+    }
+return true;
   }
 
   public int size(){

@@ -15,7 +15,7 @@ public int getNumHits(){
   return numHits;
 }
 
-public int numErrors(){
+public int getNumErrors(){
   return numErrors;
 }
 
