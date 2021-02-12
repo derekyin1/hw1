@@ -1,36 +1,59 @@
 //Derek Yin 113251504 Recitation Section 1
 public class Team{
   public static final int MAX_PLAYERS = 40;
-  private int manyItems;
+  private int pCount;
   private Player[] players;
 
   public Team(){
     players = new Player[MAX_PLAYERS];
-    manyItems = 0;
+    pCount = 0;
   }
 
   public Object clone(){
     Object copy = new Team();
-    for (int i = 0; i < manyItems; i++){
+    for (int i = 0; i < pCount; i++){
 
 
     }
+    return copy;
   }
 
   public boolean equals(Object obj){
-  if (obj instanceof Player){
-    Player p = (Player) obj;
-    return this.getNumHits() == p.getNumHits() && this.getNumErrors() == p.getNumErrors() && this.getName().equals(p.getName());
+  if (obj instanceof Team){
+    Team p = (Team) obj;
+    if (p.size() == pCount){
+    for (int i = 0; i < pCount; i++){
+      if (!(p.getPlayer(i+1).equals(players[i]))){
+        return false;
+      }
+    }
+    return true;
+  }
+  return false;
   }
   return false;
   }
 
   public int size(){
-    return manyItems;
+    int counter = 1;
+    for (int i=0; i < MAX_PLAYERS; i++){
+
+    }
+    return counter;
   }
 
   public void addPlayer(Player p, int position){
-
+    if (position >= 1 && position <= pCount+1){
+      if(position < MAX_PLAYERS){
+        for (int i = pCount-1; i >= position; i--){
+         players[i+1] = players[i];
+       }
+       players[position-1] = p;
+       pCount++;
+     }
+     //else throw new FullTeamException("Team is full");
+   }
+   else throw new IllegalArgumentException("Invalid position.");
 
   }
 
@@ -39,7 +62,7 @@ public class Team{
   }
 
   public Player getPlayer(int position){
-    if (position > manyItems || position-1 < 0){
+    if (position > pCount || position-1 < 0){
       throw new IllegalArgumentException("Invalid position");
     }
     else return players[position-1];
@@ -49,7 +72,7 @@ public class Team{
   public Player getLeader(String stat){
     if (stat.equals("hits")){
       Player currentBest = players[0];
-      for (int i = 0; i < manyItems; i++){
+      for (int i = 0; i < pCount; i++){
         if (players[i].getNumHits() > currentBest.getNumHits()){
           currentBest = players[i];
         }
@@ -58,14 +81,14 @@ public class Team{
     }
     if (stat.equals("errors")){
       Player currentBest = players[0];
-      for (int i = 0; i < manyItems; i++){
+      for (int i = 0; i < pCount; i++){
         if (players[i].getNumErrors() < currentBest.getNumErrors()){
           currentBest = players[i];
         }
       }
       return currentBest;
     }
-    else throw IllegalArgumentException("No such statistic.");
+    else throw new IllegalArgumentException("No such statistic.");
 
   }
 
@@ -76,6 +99,15 @@ public class Team{
 //  public String toString(){
 
 //  }
-
+public static void main(String[] args){
+  Team t1 = new Team();
+  Team t2 = new Team();
+  Player p = new Player("Jose", 10, 10);
+  t1.addPlayer(p, 1);
+  t2.addPlayer(p, 1);
+  t2.addPlayer(p, 2);
+  System.out.println(t1.equals(t2));
+  System.out.println(p.toString());
+}
 
 }

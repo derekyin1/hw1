@@ -8,6 +8,12 @@ public class Player{
 
   }
 
+  public Player(String names, int hits, int errors){
+    name = names;
+    numHits = hits;
+    numErrors = errors;
+  }
+
   public String getName(){
     return name;
   }
@@ -26,16 +32,24 @@ public class Player{
 
   public void setNumHits(int numHits1){
     if (numHits1 < 0){
-      throw new IllegalArgumentException();
+      throw new IllegalArgumentException("Invalid number");
     }
     numHits = numHits1;
   }
 
   public void setNumErrors(int numErrors1){
     if (numErrors1 < 0){
-      throw new IllegalArgumentException();
+      throw new IllegalArgumentException("Invalid number");
     }
     numErrors = numErrors1;
+  }
+
+  public boolean equals(Object obj){
+  if (obj instanceof Player){
+    Player p = (Player) obj;
+    return this.getNumHits() == p.getNumHits() && this.getNumErrors() == p.getNumErrors() && this.getName().equals(p.getName());
+  }
+  return false;
   }
 
   public String toString(){
