@@ -100,25 +100,27 @@ public class Team{
 
   }
 
-  public void printAllPlayers(){
-    String finalS = "";
+  /*public void printAllPlayers(){
     System.out.printf("%-21s%-26s%-19s%6s", "Player#", "Name", "Hits", "Errors");
-    System.out.printf("\n-------------------------------------------------------------------------");
+    System.out.printf("\n-------------------------------------------------------------------------\n");
     for (int i = 1; i <= pCount; i++){
-      System.out.printf("%-21s%-26s%-19d%6d", "\n" + i, this.getPlayer(i).getName(), this.getPlayer(i).getNumHits(), this.getPlayer(i).getNumErrors());
+      System.out.printf("%-21d%-26s%-19d%6s", i, this.getPlayer(i).getName(), this.getPlayer(i).getNumHits(), this.getPlayer(i).getNumErrors() + "\n");
     }
   }
+*/
 
+  public void printAllPlayers(){
+    System.out.print(this.toString());
+  }
+  
   public String toString(){
-    String finalS = "";
-    String playerS = "Player#";
-    String nameS = "Name";
-    String hitsS = "Hits";
-    String errorsS = "Errors";
+    String finalString = "";
+    finalString += String.format("%-21s%-26s%-19s%6s", "Player#", "Name", "Hits", "Errors");
+    finalString += String.format("\n-------------------------------------------------------------------------\n");
     for (int i = 1; i <= pCount; i++){
-      finalS += System.out.printf("%-21d%-26s%19d%6d", i, this.getPlayer(i).getName(), this.getPlayer(i).getNumHits(), this.getPlayer(i).getNumErrors() + "\n");
+      finalString += String.format("%-21d%-26s%-19d%6s", i, this.getPlayer(i).getName(), this.getPlayer(i).getNumHits(), this.getPlayer(i).getNumErrors() + "\n");
     }
-return playerS + nameS + hitsS + errorsS + finalS;
+return finalString;
   }
 public static void main(String[] args){
   Team t1 = new Team();
@@ -139,6 +141,7 @@ public static void main(String[] args){
   System.out.println(t2.getLeader("errors").toString());
   System.out.println(t1.equals(t2));
   t2.printAllPlayers();
+  System.out.println(t2.toString());
 }
 
 }
