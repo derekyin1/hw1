@@ -35,24 +35,19 @@ public class Team{
   }
 
   public int size(){
-    int counter = 2;
-    for (int i=0; i < MAX_PLAYERS; i++){
-    //  if ()
-
-    }
-    return counter;
+    return pCount;
   }
 
   public void addPlayer(Player p, int position){
     if (position >= 1 && position <= pCount+1){
-      if(position < MAX_PLAYERS){
+      if (position < MAX_PLAYERS){
         for (int i = pCount-1; i >= position-1; i--){
          players[i+1] = players[i];
        }
        players[position-1] = p;
        pCount++;
      }
-     //else throw new FullTeamException("Team is full");
+     //else throw new FullTeamException("");
    }
    else throw new IllegalArgumentException("Invalid position.");
 
@@ -112,7 +107,7 @@ public class Team{
   public void printAllPlayers(){
     System.out.print(this.toString());
   }
-  
+
   public String toString(){
     String finalString = "";
     finalString += String.format("%-21s%-26s%-19s%6s", "Player#", "Name", "Hits", "Errors");
@@ -122,6 +117,7 @@ public class Team{
     }
 return finalString;
   }
+
 public static void main(String[] args){
   Team t1 = new Team();
   Team t2 = new Team();
@@ -135,6 +131,7 @@ public static void main(String[] args){
   t2.addPlayer(p2, 1);
   t2.addPlayer(p3, 2);
   System.out.println(t1.getPlayer(1));
+  System.out.println(t2.size());
 //  System.out.println(t1.getPlayer(2));
   System.out.println(t2.getPlayer(1));
   System.out.println(t2.getPlayer(2));
