@@ -35,8 +35,9 @@ public class Team{
   }
 
   public int size(){
-    int counter = 1;
+    int counter = 2;
     for (int i=0; i < MAX_PLAYERS; i++){
+    //  if ()
 
     }
     return counter;
@@ -45,7 +46,7 @@ public class Team{
   public void addPlayer(Player p, int position){
     if (position >= 1 && position <= pCount+1){
       if(position < MAX_PLAYERS){
-        for (int i = pCount-1; i >= position; i--){
+        for (int i = pCount-1; i >= position-1; i--){
          players[i+1] = players[i];
        }
        players[position-1] = p;
@@ -58,7 +59,14 @@ public class Team{
   }
 
   public void removePlayer(int position){
-
+    if (position >= 1 && position <= pCount){
+      for (int i = position; i < pCount; i++){
+         players[i-1] = players[i];
+       }
+       players[pCount-1] = null;
+       pCount--;
+     }
+    else throw new IllegalArgumentException("Invalid position.");
   }
 
   public Player getPlayer(int position){
@@ -93,21 +101,44 @@ public class Team{
   }
 
   public void printAllPlayers(){
-
+    String finalS = "";
+    System.out.printf("%-21s%-26s%-19s%6s", "Player#", "Name", "Hits", "Errors");
+    System.out.printf("\n-------------------------------------------------------------------------");
+    for (int i = 1; i <= pCount; i++){
+      System.out.printf("%-21s%-26s%-19d%6d", "\n" + i, this.getPlayer(i).getName(), this.getPlayer(i).getNumHits(), this.getPlayer(i).getNumErrors());
+    }
   }
 
-//  public String toString(){
-
-//  }
+  public String toString(){
+    String finalS = "";
+    String playerS = "Player#";
+    String nameS = "Name";
+    String hitsS = "Hits";
+    String errorsS = "Errors";
+    for (int i = 1; i <= pCount; i++){
+      finalS += System.out.printf("%-21d%-26s%19d%6d", i, this.getPlayer(i).getName(), this.getPlayer(i).getNumHits(), this.getPlayer(i).getNumErrors() + "\n");
+    }
+return playerS + nameS + hitsS + errorsS + finalS;
+  }
 public static void main(String[] args){
   Team t1 = new Team();
   Team t2 = new Team();
   Player p = new Player("Jose", 10, 10);
+  Player p2 = new Player("Derek", 20, 1);
+  Player p3 = new Player("Avery", 10, 10);
   t1.addPlayer(p, 1);
+  t1.addPlayer(p2, 1);
+  t1.removePlayer(1);
   t2.addPlayer(p, 1);
-  t2.addPlayer(p, 2);
+  t2.addPlayer(p2, 1);
+  t2.addPlayer(p3, 2);
+  System.out.println(t1.getPlayer(1));
+//  System.out.println(t1.getPlayer(2));
+  System.out.println(t2.getPlayer(1));
+  System.out.println(t2.getPlayer(2));
+  System.out.println(t2.getLeader("errors").toString());
   System.out.println(t1.equals(t2));
-  System.out.println(p.toString());
+  t2.printAllPlayers();
 }
 
 }
