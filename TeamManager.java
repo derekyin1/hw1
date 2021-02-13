@@ -111,7 +111,27 @@ if (s.equals("E") || s.equals("e")){
 }
 
 if (s.equals("U") || s.equals("u")){
-  System.out.println("There are " + teams[currentTeam].size() + " player(s) in the current Team.");
+  System.out.println("Enter the player to update:");
+  String name = in.nextLine();
+  System.out.println("Enter the stat to update:");
+  String stat = in.nextLine();
+  if (stat.equals("hits")){
+    System.out.println("Enter the new number of hits:");
+    int hits = in.nextInt();
+  for (int i = 1; i <= teams[currentTeam].size(); i++){
+    if (name.equals(teams[currentTeam].getPlayer(i).getName())){
+      teams[currentTeam].getPlayer(i).setNumHits(hits);
+    }
+  }
+}
+if (stat.equals("errors")){
+  System.out.println("Enter the new number of errors:");
+  int errors = in.nextInt();
+for (int i = 1; i <= teams[currentTeam].size(); i++){
+  if (name.equals(teams[currentTeam].getPlayer(i).getName())){
+    teams[currentTeam].getPlayer(i).setNumErrors(errors);
+  }
+}
 }
 //else System.out.println("Input Error.");
 }
@@ -120,3 +140,4 @@ if (s.equals("U") || s.equals("u")){
 
 
   }
+}
