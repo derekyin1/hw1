@@ -9,13 +9,24 @@ public class TeamManager{
   }
 
   public static void main(String[] args){
-    Team userTeam = new Team();
+    Team[] teams = new Team[5];
+    Team team1 = new Team();
+    Team team2 = new Team();
+    Team team3 = new Team();
+    Team team4 = new Team();
+    Team team5 = new Team();
+    teams[0] = team1;
+    teams[1] = team2;
+    teams[2] = team3;
+    teams[3] = team4;
+    teams[4] = team5;
+    int currentTeam = 0;
     System.out.println("Welcome to Team Manager! \n ");
-    System.out.println("Team 1 is currently selected. \n");
     boolean isRunning = true;
 //menu
 while(isRunning){
-System.out.print("Please select an option: \n A) Add Player. \n G) Get Player stats. \n L) Get leader in a stat. \n R) Remove a player. \n P) Print a player. \n S) Size of team. \n T) Select team. \n C) Clone team. \n E) Team equals. \n U) Update stat. \n Q) Quit. \n");
+  System.out.println("Team " + (currentTeam+1) + " is currently selected.");
+System.out.print("\nPlease select an option: \n A) Add Player. \n G) Get Player stats. \n L) Get leader in a stat. \n R) Remove a player. \n P) Print all players. \n S) Size of team. \n T) Select team. \n C) Clone team. \n E) Team equals. \n U) Update stat. \n Q) Quit. \n");
 Scanner in = new Scanner(System.in);
 String s = in.nextLine();
 if (s.equals("Q") || s.equals("q")){
@@ -35,16 +46,74 @@ if (s.equals("A") || s.equals("a")){
   newPlayer.setNumErrors(errors);
   System.out.println("Enter the position:");
   int position = in.nextInt();
-  userTeam.addPlayer(newPlayer, position);
+  teams[currentTeam].addPlayer(newPlayer, position);
   System.out.println("Player added: " + name + " - " + hits + " hits, " + errors + " errors");
 }
+
 if (s.equals("G") || s.equals("g")){
   System.out.println("Enter the position:");
   int position = in.nextInt();
-  if (position <= userTeam.size()){
-    System.out.println(userTeam.getPlayer(position).getName() + " - " + userTeam.getPlayer(position).getNumHits() + " hits, " + userTeam.getPlayer(position).getNumErrors() + " errors");
+  if (position <= teams[currentTeam].size()){
+    System.out.println(teams[currentTeam].getPlayer(position).getName() + " - " + teams[currentTeam].getPlayer(position).getNumHits() + " hits, " + teams[currentTeam].getPlayer(position).getNumErrors() + " errors");
   }
 }
+if (s.equals("L") || s.equals("l")){
+  System.out.println("Enter the stat: ");
+  String stat = in.nextLine();
+  if (stat.equals("hits") || stat.equals("Hits")){
+    System.out.println("Leader in hits: " + teams[currentTeam].getLeader("hits").getName() + " - " + teams[currentTeam].getLeader("hits").getNumHits() + " hits, " + teams[currentTeam].getLeader("hits").getNumErrors() + " errors");
+  }
+  if (stat.equals("errors") || stat.equals("Errors")){
+    System.out.println("Leader in errors: " + teams[currentTeam].getLeader("errors").getName() + " - " + teams[currentTeam].getLeader("errors").getNumHits() + " hits, " + teams[currentTeam].getLeader("errors").getNumErrors() + " errors");
+  }
+  //else System.out.println("Input error.");
+}
+
+if (s.equals("R") || s.equals("r")){
+  System.out.println("Enter the position:");
+  int position = in.nextInt();
+  Player temp = teams[currentTeam].getPlayer(position);
+  teams[currentTeam].removePlayer(position);
+  System.out.println("Player Removed at position " + position + "\n");
+  System.out.println(temp.getName() + " has been removed from the team.");
+}
+
+if (s.equals("P") || s.equals("p")){
+  System.out.println("Select Team Index:");
+  int index = in.nextInt();
+  teams[currentTeam].printAllPlayers();
+}
+
+if (s.equals("S") || s.equals("s")){
+  System.out.println("There are " + teams[currentTeam].size() + " player(s) in the current Team.");
+}
+
+if (s.equals("T") || s.equals("t")){
+  System.out.println("Enter team index to select:");
+  int index = in.nextInt();
+  currentTeam = index - 1;
+}
+
+if (s.equals("C") || s.equals("c")){
+  System.out.println("There are " + teams[currentTeam].size() + " player(s) in the current Team.");
+}
+
+if (s.equals("E") || s.equals("e")){
+  System.out.println("Select first team index:");
+  int index1 = in.nextInt();
+  System.out.println("Select second team index:");
+  int index2 = in.nextInt();
+  if (teams[index1-1].equals(teams[index2-1])){
+    System.out.println("These teams are equal.");
+  }
+  else System.out.println("These teams are not equal.");
+
+}
+
+if (s.equals("U") || s.equals("u")){
+  System.out.println("There are " + teams[currentTeam].size() + " player(s) in the current Team.");
+}
+//else System.out.println("Input Error.");
 }
 }
 
