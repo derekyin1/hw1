@@ -10,10 +10,9 @@ public class Team{
   }
 
   public Object clone(){
-    Object copy = new Team();
-    for (int i = 0; i < pCount; i++){
-
-
+    Team copy = (Team) this;
+    for (int i = 1; i <= pCount; i++){
+      copy.addPlayer(this.getPlayer(i),i);
     }
     return copy;
   }
@@ -66,7 +65,7 @@ public class Team{
 
   public Player getPlayer(int position){
     if (position > pCount || position-1 < 0){
-      throw new IllegalArgumentException("Invalid position");
+      throw new IllegalArgumentException("Invalid position.");
     }
     else return players[position-1];
 

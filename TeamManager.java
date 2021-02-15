@@ -1,3 +1,4 @@
+//Derek Yin 113251504 Recitation Section 1
 import java.util.Scanner;
 
 public class TeamManager{
@@ -95,7 +96,12 @@ if (s.equals("T") || s.equals("t")){
 }
 
 if (s.equals("C") || s.equals("c")){
-  System.out.println("There are " + teams[currentTeam].size() + " player(s) in the current Team.");
+  System.out.println("Select team to clone from:");
+  int fromTeam = in.nextInt();
+  System.out.println("Select team to clone to:");
+  int toTeam = in.nextInt();
+  teams[toTeam-1] = (Team) teams[fromTeam-1].clone();
+  System.out.println("Team " + fromTeam + " has been cloned to Team " + toTeam + ".");
 }
 
 if (s.equals("E") || s.equals("e")){
