@@ -10,8 +10,8 @@ public class TeamManager{
   }
 
   public static void main(String[] args){
-    Team[] teams = new Team[5];
-    Team team1 = new Team();
+    Team[] teams = new Team[MAX_TEAMS];
+    /*Team team1 = new Team();
     Team team2 = new Team();
     Team team3 = new Team();
     Team team4 = new Team();
@@ -20,7 +20,10 @@ public class TeamManager{
     teams[1] = team2;
     teams[2] = team3;
     teams[3] = team4;
-    teams[4] = team5;
+    teams[4] = team5;*/
+    for (int i = 0; i < MAX_TEAMS; i++){
+      teams[i] = new Team();
+    }
     int currentTeam = 0;
     System.out.println("Welcome to Team Manager! \n ");
     boolean isRunning = true;
@@ -40,23 +43,70 @@ if (s.equals("A") || s.equals("a")){
   String name = in.nextLine();
   newPlayer.setName(name);
   System.out.println("Enter the number of hits:");
-  int hits = in.nextInt();
-  newPlayer.setNumHits(hits);
+  int hits = 0;
+  if (in.hasNextInt()){
+    hits = in.nextInt();
+    if (hits > 0){
+      newPlayer.setNumHits(hits);
+    }
+    else {
+      System.out.println("Invalid input");
+      return;
+    }
+  }
+  else {
+    System.out.println("Invalid input");
+    return;
+  }
   System.out.println("Enter the number of errors:");
-  int errors = in.nextInt();
-  newPlayer.setNumErrors(errors);
+  int errors = 0;
+  if (in.hasNextInt()){
+    errors = in.nextInt();
+    if (errors > 0){
+      newPlayer.setNumErrors(errors);
+    }
+    else {
+      System.out.println("Invalid input");
+      return;
+    }
+  }
+  else {
+    System.out.println("Invalid input");
+    return;
+  }
+
+
   System.out.println("Enter the position:");
-  int position = in.nextInt();
-  teams[currentTeam].addPlayer(newPlayer, position);
-  System.out.println("Player added: " + name + " - " + hits + " hits, " + errors + " errors");
+  int position = 0;
+  if (in.hasNextInt()){
+    position = in.nextInt();
+    if (position > 0 && position <= 40){
+      teams[currentTeam].addPlayer(newPlayer, position);
+      System.out.println("Player added: " + name + " - " + hits + " hits, " + errors + " errors");
+    }
+    else {
+      System.out.println("Invalid input");
+      return;
+    }
+  }
+else {
+  System.out.println("Invalid input");
+  return;
+}
 }
 
 if (s.equals("G") || s.equals("g")){
   System.out.println("Enter the position:");
+  if (in.hasNextInt()){
   int position = in.nextInt();
-  if (position <= teams[currentTeam].size()){
+  if (position <= teams[currentTeam].size() && position > 0){
     System.out.println(teams[currentTeam].getPlayer(position).getName() + " - " + teams[currentTeam].getPlayer(position).getNumHits() + " hits, " + teams[currentTeam].getPlayer(position).getNumErrors() + " errors");
   }
+}
+else {
+  System.out.println("Invalid input");
+  return;
+}
 }
 if (s.equals("L") || s.equals("l")){
   System.out.println("Enter the stat: ");
@@ -67,22 +117,45 @@ if (s.equals("L") || s.equals("l")){
   if (stat.equals("errors") || stat.equals("Errors")){
     System.out.println("Leader in errors: " + teams[currentTeam].getLeader("errors").getName() + " - " + teams[currentTeam].getLeader("errors").getNumHits() + " hits, " + teams[currentTeam].getLeader("errors").getNumErrors() + " errors");
   }
-  //else System.out.println("Input error.");
+  if (!stat.equals("errors") && !stat.equals("Errors") && !stat.equals("hits") && !stat.equals("Hits")){
+    System.out.println("Invalid input.");
+    return;
+  }
 }
 
 if (s.equals("R") || s.equals("r")){
   System.out.println("Enter the position:");
+  if (in.hasNextInt()){
   int position = in.nextInt();
-  Player temp = teams[currentTeam].getPlayer(position);
-  teams[currentTeam].removePlayer(position);
-  System.out.println("Player Removed at position " + position + "\n");
-  System.out.println(temp.getName() + " has been removed from the team.");
+  if (position > 0 && position <= teams[currentTeam].size()){
+    Player temp = teams[currentTeam].getPlayer(position);
+    teams[currentTeam].removePlayer(position);
+    System.out.println("Player Removed at position " + position + "\n");
+    System.out.println(temp.getName() + " has been removed from the team.");
+  }
+}
+else {
+  System.out.println("Invalid input");
+  return;
+}
 }
 
 if (s.equals("P") || s.equals("p")){
   System.out.println("Select Team Index:");
-  int index = in.nextInt();
-  teams[currentTeam].printAllPlayers();
+  if (in.hasNextInt()){
+    int index = in.nextInt();
+    if (index > 0 && index <= MAX_TEAMS){
+    teams[index-1].printAllPlayers();
+  }
+  else {
+    System.out.println("Invalid input");
+    return;
+  }
+}
+else {
+  System.out.println("Invalid input");
+  return;
+}
 }
 
 if (s.equals("S") || s.equals("s")){
@@ -91,30 +164,84 @@ if (s.equals("S") || s.equals("s")){
 
 if (s.equals("T") || s.equals("t")){
   System.out.println("Enter team index to select:");
-  int index = in.nextInt();
-  currentTeam = index - 1;
+  if (in.hasNextInt()){
+    int index = in.nextInt();
+    if (index > 0 && index <= MAX_TEAMS){
+    currentTeam = index - 1;
+  }
+  else {
+    System.out.println("Invalid input");
+    return;
+  }
+  }
+  else {
+    System.out.println("Invalid input");
+    return;
+  }
 }
 
 if (s.equals("C") || s.equals("c")){
   System.out.println("Select team to clone from:");
-  int fromTeam = in.nextInt();
-  System.out.println("Select team to clone to:");
-  int toTeam = in.nextInt();
-  teams[toTeam-1] = (Team) teams[fromTeam-1].clone();
-  System.out.println("Team " + fromTeam + " has been cloned to Team " + toTeam + ".");
+  if (in.hasNextInt()){
+    int fromTeam = in.nextInt();
+    if (fromTeam > 0 && fromTeam <= MAX_TEAMS){
+      System.out.println("Select team to clone to:");
+      if (in.hasNextInt()){
+        int toTeam = in.nextInt();
+        if (toTeam > 0 && toTeam <= MAX_TEAMS){
+          teams[toTeam-1] = (Team) teams[fromTeam-1].clone();
+          System.out.println("Team " + fromTeam + " has been cloned to Team " + toTeam + ".");
+        }
+        else {
+          System.out.println("Invalid input");
+          return;
+        }
+      }
+      else {
+        System.out.println("Invalid input");
+        return;
+      }
+    }
+    else {
+      System.out.println("Invalid input");
+      return;
+    }
+}
+System.out.println("Invalid input");
+return;
 }
 
 if (s.equals("E") || s.equals("e")){
   System.out.println("Select first team index:");
-  int index1 = in.nextInt();
-  System.out.println("Select second team index:");
-  int index2 = in.nextInt();
-  if (teams[index1-1].equals(teams[index2-1])){
-    System.out.println("These teams are equal.");
+  if (in.hasNextInt()){
+    int index1 = in.nextInt();
+    if (index1 > 0 && index1 <= MAX_TEAMS){
+      System.out.println("Select second team index:");
+      if (in.hasNextInt()){
+        int index2 = in.nextInt();
+        if (index2 > 0 && index2 <= MAX_TEAMS){
+          if (teams[index1-1].equals(teams[index2-1])){
+            System.out.println("These teams are equal.");
+          }
+          else System.out.println("These teams are not equal.");
+        }
+      }
+      else {
+        System.out.println("Invalid input");
+        return;
+      }
+    }
+    else {
+      System.out.println("Invalid input");
+      return;
+    }
   }
-  else System.out.println("These teams are not equal.");
-
+  else {
+    System.out.println("Invalid input");
+    return;
+  }
 }
+
 
 if (s.equals("U") || s.equals("u")){
   System.out.println("Enter the player to update:");
@@ -122,22 +249,48 @@ if (s.equals("U") || s.equals("u")){
   System.out.println("Enter the stat to update:");
   String stat = in.nextLine();
   if (stat.equals("hits")){
+    boolean validName = false;
     System.out.println("Enter the new number of hits:");
     int hits = in.nextInt();
-  for (int i = 1; i <= teams[currentTeam].size(); i++){
-    if (name.equals(teams[currentTeam].getPlayer(i).getName())){
-      teams[currentTeam].getPlayer(i).setNumHits(hits);
+    if (hits > 0){
+      for (int i = 1; i <= teams[currentTeam].size(); i++){
+        if (name.equals(teams[currentTeam].getPlayer(i).getName())){
+          teams[currentTeam].getPlayer(i).setNumHits(hits);
+          validName = true;
+        }
+      }
+    }
+    else {
+      System.out.println("Invalid input");
+      return;
+    }
+    if (validName){
+      System.out.println("Updated " + name + " hits.");
+    }
+    else {
+      System.out.println("Invalid name.");
+      return;
     }
   }
-}
 if (stat.equals("errors")){
+  boolean validName = false;
   System.out.println("Enter the new number of errors:");
   int errors = in.nextInt();
-for (int i = 1; i <= teams[currentTeam].size(); i++){
-  if (name.equals(teams[currentTeam].getPlayer(i).getName())){
-    teams[currentTeam].getPlayer(i).setNumErrors(errors);
+  if (errors > 0){
+    for (int i = 1; i <= teams[currentTeam].size(); i++){
+      if (name.equals(teams[currentTeam].getPlayer(i).getName())){
+        teams[currentTeam].getPlayer(i).setNumErrors(errors);
+        validName = true;
+      }
+    }
   }
-}
+  if (validName){
+    System.out.println("Updated " + name + " hits.");
+  }
+  else {
+    System.out.println("Invalid name.");
+    return;
+  }
 }
 //else System.out.println("Input Error.");
 }

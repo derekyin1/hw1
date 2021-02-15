@@ -55,8 +55,5 @@ public class Player{
   public String toString(){
     return name + ", " + String.valueOf(numHits) + ", " + String.valueOf(numErrors);
   }
-  public static void main(String[] args){
-    Player test = new Player();
-    System.out.println(test.toString());
-  }
+
 }
