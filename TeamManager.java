@@ -1,26 +1,24 @@
 //Derek Yin 113251504 Recitation Section 1
+/** This class is used to manage a maximum of 5 teams.
+*
+*
+*/
 import java.util.Scanner;
-
 public class TeamManager{
+/** This integer MAX_TEAMS represents the maximum amount of teams a user can manage
+*
+*/
   public static final int MAX_TEAMS = 5;
   private Team[] teams;
 
-  public static void startMenu(){
-
-  }
-
+/** This method displays a menu in the terminal.
+*
+*
+*
+*
+*/
   public static void main(String[] args){
     Team[] teams = new Team[MAX_TEAMS];
-    /*Team team1 = new Team();
-    Team team2 = new Team();
-    Team team3 = new Team();
-    Team team4 = new Team();
-    Team team5 = new Team();
-    teams[0] = team1;
-    teams[1] = team2;
-    teams[2] = team3;
-    teams[3] = team4;
-    teams[4] = team5;*/
     for (int i = 0; i < MAX_TEAMS; i++){
       teams[i] = new Team();
     }
@@ -324,7 +322,6 @@ if (!stat.equals("errors") && !stat.equals("hits")){
   isRunning = false;
   isRunning = true;
 }
-//else System.out.println("Input Error.");
 }
 }
 
