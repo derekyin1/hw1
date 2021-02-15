@@ -9,10 +9,15 @@ public class Team{
     pCount = 0;
   }
 
-  public Object clone(){
+  public Object clone() {
     Team copy = (Team) this;
     for (int i = 1; i <= pCount; i++){
+      try{
       copy.addPlayer(this.getPlayer(i),i);
+    }
+    catch (FullTeamException e){
+      
+    }
     }
     return copy;
   }
@@ -37,7 +42,7 @@ public class Team{
     return pCount;
   }
 
-  public void addPlayer(Player p, int position){
+  public void addPlayer(Player p, int position) throws FullTeamException{
     if (position >= 1 && position <= pCount+1){
       if (position < MAX_PLAYERS){
         for (int i = pCount-1; i >= position-1; i--){
@@ -46,7 +51,6 @@ public class Team{
        players[position-1] = p;
        pCount++;
      }
-     //else throw new FullTeamException("");
    }
    else throw new IllegalArgumentException("Invalid position.");
 
@@ -116,28 +120,5 @@ public class Team{
     }
 return finalString;
   }
-
-public static void main(String[] args){
-  Team t1 = new Team();
-  Team t2 = new Team();
-  Player p = new Player("Jose", 10, 10);
-  Player p2 = new Player("Derek", 20, 1);
-  Player p3 = new Player("Avery", 10, 10);
-  t1.addPlayer(p, 1);
-  t1.addPlayer(p2, 1);
-  t1.removePlayer(1);
-  t2.addPlayer(p, 1);
-  t2.addPlayer(p2, 1);
-  t2.addPlayer(p3, 2);
-  System.out.println(t1.getPlayer(1));
-  System.out.println(t2.size());
-//  System.out.println(t1.getPlayer(2));
-  System.out.println(t2.getPlayer(1));
-  System.out.println(t2.getPlayer(2));
-  System.out.println(t2.getLeader("errors").toString());
-  System.out.println(t1.equals(t2));
-  t2.printAllPlayers();
-  System.out.println(t2.toString());
-}
 
 }

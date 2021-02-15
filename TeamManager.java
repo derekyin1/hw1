@@ -61,8 +61,11 @@ if (s.equals("A") || s.equals("a")){
     if (in.hasNextInt()){
       position = in.nextInt();
       if (position > 0 && position <= 40){
+        try{
         teams[currentTeam].addPlayer(newPlayer, position);
         System.out.println("Player added: " + name + " - " + hits + " hits, " + errors + " errors");
+      }
+      catch (FullTeamException e){}
       }
       else {
         System.out.println("Invalid input.");
