@@ -49,51 +49,46 @@ if (s.equals("A") || s.equals("a")){
     if (hits > 0){
       newPlayer.setNumHits(hits);
     }
+    System.out.println("Enter the number of errors:");
+    int errors = 0;
+    if (in.hasNextInt()){
+      errors = in.nextInt();
+      if (errors > 0){
+        newPlayer.setNumErrors(errors);
+    }
+    System.out.println("Enter the position:");
+    int position = 0;
+    if (in.hasNextInt()){
+      position = in.nextInt();
+      if (position > 0 && position <= 40){
+        teams[currentTeam].addPlayer(newPlayer, position);
+        System.out.println("Player added: " + name + " - " + hits + " hits, " + errors + " errors");
+      }
+      else {
+        System.out.println("Invalid input.");
+        isRunning = false;
+        isRunning = true;
+      }
+    }
     else {
-      System.out.println("Invalid input");
-      return;
+      System.out.println("Invalid input.");
+      isRunning = false;
+      isRunning = true;
     }
   }
   else {
-    System.out.println("Invalid input");
-    return;
+    System.out.println("Invalid input.");
+    isRunning = false;
+    isRunning = true;
   }
-  System.out.println("Enter the number of errors:");
-  int errors = 0;
-  if (in.hasNextInt()){
-    errors = in.nextInt();
-    if (errors > 0){
-      newPlayer.setNumErrors(errors);
-    }
-    else {
-      System.out.println("Invalid input");
-      return;
-    }
-  }
-  else {
-    System.out.println("Invalid input");
-    return;
-  }
-
-
-  System.out.println("Enter the position:");
-  int position = 0;
-  if (in.hasNextInt()){
-    position = in.nextInt();
-    if (position > 0 && position <= 40){
-      teams[currentTeam].addPlayer(newPlayer, position);
-      System.out.println("Player added: " + name + " - " + hits + " hits, " + errors + " errors");
-    }
-    else {
-      System.out.println("Invalid input");
-      return;
-    }
-  }
+}
 else {
-  System.out.println("Invalid input");
-  return;
+  System.out.println("Invalid input.");
+  isRunning = false;
+  isRunning = true;
 }
 }
+
 
 if (s.equals("G") || s.equals("g")){
   System.out.println("Enter the position:");
@@ -105,7 +100,8 @@ if (s.equals("G") || s.equals("g")){
 }
 else {
   System.out.println("Invalid input");
-  return;
+  isRunning = false;
+  isRunning = true;
 }
 }
 if (s.equals("L") || s.equals("l")){
@@ -119,7 +115,8 @@ if (s.equals("L") || s.equals("l")){
   }
   if (!stat.equals("errors") && !stat.equals("Errors") && !stat.equals("hits") && !stat.equals("Hits")){
     System.out.println("Invalid input.");
-    return;
+    isRunning = false;
+    isRunning = true;
   }
 }
 
@@ -133,10 +130,16 @@ if (s.equals("R") || s.equals("r")){
     System.out.println("Player Removed at position " + position + "\n");
     System.out.println(temp.getName() + " has been removed from the team.");
   }
+  else {
+    System.out.println("Invalid input");
+    isRunning = false;
+    isRunning = true;
+  }
 }
 else {
   System.out.println("Invalid input");
-  return;
+  isRunning = false;
+  isRunning = true;
 }
 }
 
@@ -149,12 +152,14 @@ if (s.equals("P") || s.equals("p")){
   }
   else {
     System.out.println("Invalid input");
-    return;
+    isRunning = false;
+    isRunning = true;
   }
 }
 else {
   System.out.println("Invalid input");
-  return;
+  isRunning = false;
+  isRunning = true;
 }
 }
 
@@ -171,12 +176,14 @@ if (s.equals("T") || s.equals("t")){
   }
   else {
     System.out.println("Invalid input");
-    return;
+    isRunning = false;
+    isRunning = true;
   }
   }
   else {
     System.out.println("Invalid input");
-    return;
+    isRunning = false;
+    isRunning = true;
   }
 }
 
@@ -194,21 +201,27 @@ if (s.equals("C") || s.equals("c")){
         }
         else {
           System.out.println("Invalid input");
-          return;
+          isRunning = false;
+          isRunning = true;
         }
       }
       else {
         System.out.println("Invalid input");
-        return;
+        isRunning = false;
+        isRunning = true;
       }
     }
     else {
       System.out.println("Invalid input");
-      return;
+      isRunning = false;
+      isRunning = true;
     }
-}
-System.out.println("Invalid input");
-return;
+  }
+  else {
+    System.out.println("Invalid input");
+    isRunning = false;
+    isRunning = true;
+  }
 }
 
 if (s.equals("E") || s.equals("e")){
@@ -225,20 +238,28 @@ if (s.equals("E") || s.equals("e")){
           }
           else System.out.println("These teams are not equal.");
         }
+        else {
+          System.out.println("Invalid input");
+          isRunning = false;
+          isRunning = true;
+        }
       }
       else {
         System.out.println("Invalid input");
-        return;
+        isRunning = false;
+        isRunning = true;
       }
     }
     else {
       System.out.println("Invalid input");
-      return;
+      isRunning = false;
+      isRunning = true;
     }
   }
   else {
     System.out.println("Invalid input");
-    return;
+    isRunning = false;
+    isRunning = true;
   }
 }
 
@@ -262,14 +283,16 @@ if (s.equals("U") || s.equals("u")){
     }
     else {
       System.out.println("Invalid input");
-      return;
+      isRunning = false;
+      isRunning = true;
     }
     if (validName){
       System.out.println("Updated " + name + " hits.");
     }
     else {
       System.out.println("Invalid name.");
-      return;
+      isRunning = false;
+      isRunning = true;
     }
   }
 if (stat.equals("errors")){
@@ -283,14 +306,20 @@ if (stat.equals("errors")){
         validName = true;
       }
     }
-  }
-  if (validName){
-    System.out.println("Updated " + name + " hits.");
+    if (validName){
+      System.out.println("Updated " + name + " hits.");
+    }
   }
   else {
     System.out.println("Invalid name.");
-    return;
+    isRunning = false;
+    isRunning = true;
   }
+}
+if (!stat.equals("errors") && !stat.equals("hits")){
+  System.out.println("Invalid stat.");
+  isRunning = false;
+  isRunning = true;
 }
 //else System.out.println("Input Error.");
 }
