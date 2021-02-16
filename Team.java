@@ -27,8 +27,8 @@ public class Team{
 * FullTeamException when team is full
 */
   public Object clone() {
-    Team copy = (Team) this;
-    for (int i = 1; i <= pCount; i++){
+    Team copy = new Team();
+    for (int i = 1; i <= this.size(); i++){
       try{
         copy.addPlayer(this.getPlayer(i),i);
       }
@@ -86,7 +86,7 @@ public class Team{
 */
   public void addPlayer(Player p, int position) throws FullTeamException{
     if (position >= 1 && position <= pCount+1){
-      if (position < MAX_PLAYERS){
+      if (position <= MAX_PLAYERS){
         for (int i = pCount-1; i >= position-1; i--){
          players[i+1] = players[i];
        }
@@ -190,4 +190,15 @@ public class Team{
 return finalString;
   }
 
+public static void main(String[] args) {
+  Team test = new Team();
+  Player tester = new Player();
+  tester.setName("James");
+  tester.setNumHits(10);
+  tester.setNumErrors(10);
+  try{
+  test.addPlayer(tester, 1);
+} catch (FullTeamException e){}
+  System.out.println(test.clone().toString());
+}
 }

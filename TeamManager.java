@@ -13,8 +13,8 @@ public class TeamManager{
 
 /** This method displays a menu in the terminal.
 *
-*
-*
+* Firstly, this method creates an array of Teams and stores MAX_TEAMS teams in it.
+* While the menu is "running", many options are displayed to the user.
 *
 */
   public static void main(String[] args){
@@ -58,7 +58,7 @@ if (s.equals("A") || s.equals("a")){
     int position = 0;
     if (in.hasNextInt()){
       position = in.nextInt();
-      if (position > 0 && position <= 40){
+      if (position > 0 && position <= teams[currentTeam].size()+1){
         try{
         teams[currentTeam].addPlayer(newPlayer, position);
         System.out.println("Player added: " + name + " - " + hits + " hits, " + errors + " errors");
@@ -66,7 +66,7 @@ if (s.equals("A") || s.equals("a")){
       catch (FullTeamException e){}
       }
       else {
-        System.out.println("Invalid input.");
+        System.out.println("Invalid position");
         isRunning = false;
         isRunning = true;
       }
@@ -97,6 +97,11 @@ if (s.equals("G") || s.equals("g")){
   int position = in.nextInt();
   if (position <= teams[currentTeam].size() && position > 0){
     System.out.println(teams[currentTeam].getPlayer(position).getName() + " - " + teams[currentTeam].getPlayer(position).getNumHits() + " hits, " + teams[currentTeam].getPlayer(position).getNumErrors() + " errors");
+  }
+  else {
+    System.out.println("Invalid position");
+    isRunning = false;
+    isRunning = true;
   }
 }
 else {
@@ -132,7 +137,7 @@ if (s.equals("R") || s.equals("r")){
     System.out.println(temp.getName() + " has been removed from the team.");
   }
   else {
-    System.out.println("Invalid input");
+    System.out.println("Invalid position");
     isRunning = false;
     isRunning = true;
   }
@@ -152,7 +157,7 @@ if (s.equals("P") || s.equals("p")){
     teams[index-1].printAllPlayers();
   }
   else {
-    System.out.println("Invalid input");
+    System.out.println("Invalid index");
     isRunning = false;
     isRunning = true;
   }
@@ -176,7 +181,7 @@ if (s.equals("T") || s.equals("t")){
     currentTeam = index - 1;
   }
   else {
-    System.out.println("Invalid input");
+    System.out.println("Invalid index");
     isRunning = false;
     isRunning = true;
   }
@@ -201,7 +206,7 @@ if (s.equals("C") || s.equals("c")){
           System.out.println("Team " + fromTeam + " has been cloned to Team " + toTeam + ".");
         }
         else {
-          System.out.println("Invalid input");
+          System.out.println("Invalid team index");
           isRunning = false;
           isRunning = true;
         }
@@ -213,7 +218,7 @@ if (s.equals("C") || s.equals("c")){
       }
     }
     else {
-      System.out.println("Invalid input");
+      System.out.println("Invalid team index");
       isRunning = false;
       isRunning = true;
     }
@@ -240,7 +245,7 @@ if (s.equals("E") || s.equals("e")){
           else System.out.println("These teams are not equal.");
         }
         else {
-          System.out.println("Invalid input");
+          System.out.println("Invalid index");
           isRunning = false;
           isRunning = true;
         }
@@ -252,7 +257,7 @@ if (s.equals("E") || s.equals("e")){
       }
     }
     else {
-      System.out.println("Invalid input");
+      System.out.println("Invalid index");
       isRunning = false;
       isRunning = true;
     }
@@ -273,50 +278,64 @@ if (s.equals("U") || s.equals("u")){
   if (stat.equals("hits")){
     boolean validName = false;
     System.out.println("Enter the new number of hits:");
-    int hits = in.nextInt();
-    if (hits > 0){
-      for (int i = 1; i <= teams[currentTeam].size(); i++){
-        if (name.equals(teams[currentTeam].getPlayer(i).getName())){
-          teams[currentTeam].getPlayer(i).setNumHits(hits);
-          validName = true;
+    if (in.hasNextInt()){
+      int hits = in.nextInt();
+      if (hits > 0){
+        for (int i = 1; i <= teams[currentTeam].size(); i++){
+          if (name.equals(teams[currentTeam].getPlayer(i).getName())){
+            teams[currentTeam].getPlayer(i).setNumHits(hits);
+            validName = true;
+          }
         }
+      }
+      else {
+        System.out.println("Invalid number of hits");
+        isRunning = false;
+        isRunning = true;
+      }
+      if (validName){
+        System.out.println("Updated " + name + " hits.");
+      }
+      else {
+        System.out.println("Invalid input.");
+        isRunning = false;
+        isRunning = true;
       }
     }
     else {
-      System.out.println("Invalid input");
+      System.out.println("Invalid input.");
       isRunning = false;
       isRunning = true;
     }
-    if (validName){
-      System.out.println("Updated " + name + " hits.");
     }
-    else {
-      System.out.println("Invalid name.");
-      isRunning = false;
-      isRunning = true;
-    }
-  }
 if (stat.equals("errors")){
   boolean validName = false;
   System.out.println("Enter the new number of errors:");
-  int errors = in.nextInt();
-  if (errors > 0){
-    for (int i = 1; i <= teams[currentTeam].size(); i++){
-      if (name.equals(teams[currentTeam].getPlayer(i).getName())){
-        teams[currentTeam].getPlayer(i).setNumErrors(errors);
-        validName = true;
+  if (in.hasNextInt()){
+    int errors = in.nextInt();
+    if (errors > 0){
+      for (int i = 1; i <= teams[currentTeam].size(); i++){
+        if (name.equals(teams[currentTeam].getPlayer(i).getName())){
+          teams[currentTeam].getPlayer(i).setNumErrors(errors);
+          validName = true;
+        }
+      }
+      if (validName){
+        System.out.println("Updated " + name + " hits.");
       }
     }
-    if (validName){
-      System.out.println("Updated " + name + " hits.");
+    else {
+      System.out.println("Invalid input.");
+      isRunning = false;
+      isRunning = true;
     }
   }
   else {
-    System.out.println("Invalid name.");
+    System.out.println("Invalid input.");
     isRunning = false;
     isRunning = true;
   }
-}
+  }
 if (!stat.equals("errors") && !stat.equals("hits")){
   System.out.println("Invalid stat.");
   isRunning = false;
