@@ -1,6 +1,8 @@
-//Derek Yin 113251504 Recitation Section 1
-/** This class represents a team, which stores Players.
+/** Derek Yin 113251504 Recitation Section 1
+* This class represents a team, which stores Players.
 *
+* @author
+* Derek Yin
 */
 public class Team{
 /** MAX_PLAYERS represents maximum amount of players in a TeamManager
@@ -190,15 +192,5 @@ public class Team{
 return finalString;
   }
 
-public static void main(String[] args) {
-  Team test = new Team();
-  Player tester = new Player();
-  tester.setName("James");
-  tester.setNumHits(10);
-  tester.setNumErrors(10);
-  try{
-  test.addPlayer(tester, 1);
-} catch (FullTeamException e){}
-  System.out.println(test.clone().toString());
-}
+
 }

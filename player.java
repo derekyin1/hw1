@@ -1,5 +1,5 @@
-//Derek Yin 113251504 Recitation Section 1
-/** This class represents the Player object
+/** Derek Yin 113251504 Recitation Section 1
+* This class represents the Player object
 * Each player has an associated name, number of hits, and number of errors
 *
 * @author Derek Yin
