@@ -2,7 +2,8 @@
 * This class represents the Player object
 * Each player has an associated name, number of hits, and number of errors
 *
-* @author Derek Yin
+* @author
+* Derek Yin
 */
 public class Player{
   private String name;
